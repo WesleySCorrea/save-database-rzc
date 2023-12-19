@@ -14,9 +14,9 @@ RUN go mod download
 COPY . .
 
 
-RUN go build -v -o ./ ./app
+RUN go build -v -o app /app/project 
 
 
 EXPOSE 8080
 
-CMD ["/usr/local/bin/app/project"]
+CMD ["./app"]
