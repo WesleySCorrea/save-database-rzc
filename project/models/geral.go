@@ -16,7 +16,6 @@ type Geral struct {
 	MessageID                string          `db:"message_id" json:"messageId"`
 	ReferenceMessageID       string          `db:"reference_message_id" json:"referenceMessageId"`
 	Momment                  int64           `db:"momment" json:"momment"`
-	TextMessage              string          `db:"text_message" json:"textMessage"`
 	IsStatusReply            bool            `db:"is_status_reply" json:"isStatusReply"`
 	ChatLid                  string          `db:"chat_lid" json:"chatLid"`
 	ConnectedPhone           string          `db:"connected_phone" json:"connectedPhone"`
@@ -26,6 +25,7 @@ type Geral struct {
 	IsNewsletter             bool            `db:"is_newsletter" json:"isNewsletter"`
 	InstanceID               string          `db:"instance_id" json:"instanceId"`
 	FromMe                   bool            `db:"from_me" json:"fromMe"`
+	FromApi                  bool            `db:"from_api" json:"fromApi"`
 	Status                   string          `db:"status" json:"status"`
 	ChatName                 string          `db:"chat_name" json:"chatName"`
 	SenderPhoto              string          `db:"sender_photo" json:"senderPhoto"`
@@ -37,6 +37,7 @@ type Geral struct {
 	Type                     string          `db:"type" json:"type"`
 	MessageDateTime          time.Time       `db:"message_date_time" json:"messageDateTime"`
 	SenderLid                string          `db:"sender_lid" json:"senderLid"`
+	TextMessage              json.RawMessage `db:"text_message" json:"text"`
 	Reaction                 json.RawMessage `db:"reaction" json:"reaction"`
 	ExternalAdReply          json.RawMessage `db:"external_ad_reply" json:"externalAdReply"`
 	Image                    json.RawMessage `db:"image" json:"image"`
