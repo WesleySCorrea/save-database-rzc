@@ -33,6 +33,31 @@ func FileFindByPhone(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"Arquivos": files})
 }
 
+func FileFindByDate(c *gin.Context) {
+	date := c.Param("date")
+
+	files, err := services.FileFindByDate(date)
+	if err != nil {
+		c.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"Arquivos": files})
+}
+
+func FileFindByGroupAndDate(c *gin.Context) {
+	group := c.Param("group")
+	date := c.Param("date")
+
+	files, err := services.FileFindByGroupAndDate(group, date)
+	if err != nil {
+		c.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
+		return
+	}
+	// c.JSON(http.StatusOK, gin.H{"group": group, "date": date})
+	c.JSON(http.StatusOK, gin.H{"Arquivos": files})
+}
+
 func SaveFiles(c *gin.Context) {
 
 	var newFile models.Geral
@@ -53,5 +78,7 @@ func SaveFiles(c *gin.Context) {
 func FilesRoutes(r *gin.Engine) {
 	r.GET("/api/files", FilesFindAll)
 	r.GET("/api/files/:phone", FileFindByPhone)
+	r.GET("/api/date/:date", FileFindByDate)
+	r.GET("/api/group/:group/:date", FileFindByGroupAndDate)
 	r.POST("/api/savefiles", SaveFiles)
 }

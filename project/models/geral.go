@@ -51,4 +51,5 @@ type Geral struct {
 	GIF                      json.RawMessage `db:"gif" json:"gif"`
 	Poll                     json.RawMessage `db:"poll" json:"poll"`
 	PollVote                 json.RawMessage `db:"poll_vote" json:"pollVote"`
+	DataSendMessage          time.Time       `db:"data_send_message" json:"dataSendMessage"`
 }
