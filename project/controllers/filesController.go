@@ -60,7 +60,7 @@ func FileFindByGroupAndDate(c *gin.Context) {
 
 func SaveFiles(c *gin.Context) {
 
-	var newFile models.Geral
+	var newFile models.Files
 	if err := c.ShouldBindJSON(&newFile); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Dados do arquivo inválidos"})
 		return

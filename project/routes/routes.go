@@ -10,8 +10,9 @@ import (
 func SetupRoutes(r *gin.Engine) {
 	r.GET("/", homeHandler)
 	controller.FilesRoutes(r)
+	controller.ClientRoutes(r)
 }
 
 func homeHandler(c *gin.Context) {
-	c.String(http.StatusOK, "Olá, Mundo!")
+	c.String(http.StatusOK, "Projeto RZC - OKAY")
 }

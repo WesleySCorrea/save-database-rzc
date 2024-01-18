@@ -5,11 +5,11 @@ import (
 	"time"
 )
 
-type Geral struct {
-	ClientID                 int             `db:"client_id" json:"clientId"`
-	ID                       int64           `db:"id" json:"id"`
-	CreationDate             time.Time       `db:"creation_date" json:"creationDate"`
-	UpdateDate               time.Time       `db:"update_date" json:"updateDate"`
+type Files struct {
+	ID       int `gorm:"primaryKey" db:"id" json:"id"`
+	ClientID int `db:"client_id" json:"clientId"`
+	// CreationDate             time.Time       `db:"creation_date" json:"creationDate"`
+	// UpdateDate               time.Time       `db:"update_date" json:"updateDate"`
 	Phone                    string          `db:"phone" json:"phone"`
 	ParticipantPhone         string          `db:"participant_phone" json:"participantPhone"`
 	SenderName               string          `db:"sender_name" json:"senderName"`

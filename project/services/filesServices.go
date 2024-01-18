@@ -7,7 +7,7 @@ import (
 	"time"
 )
 
-func FilesFindAll() ([]*models.Geral, error) {
+func FilesFindAll() ([]*models.Files, error) {
 
 	fmt.Println("Chegou na Service")
 	files, err := repositories.FilesFindAll()
@@ -19,7 +19,7 @@ func FilesFindAll() ([]*models.Geral, error) {
 	return files, nil
 }
 
-func FileFindByPhone(phone string) ([]models.Geral, error) {
+func FileFindByPhone(phone string) ([]models.Files, error) {
 
 	files, err := repositories.FileFindByPhone(phone)
 	if err != nil {
@@ -29,7 +29,7 @@ func FileFindByPhone(phone string) ([]models.Geral, error) {
 	return files, nil
 }
 
-func FileFindByDate(date string) ([]models.Geral, error) {
+func FileFindByDate(date string) ([]models.Files, error) {
 
 	newDate, err := time.Parse("02-01-2006", date)
 	if err != nil {
@@ -49,7 +49,7 @@ func FileFindByDate(date string) ([]models.Geral, error) {
 	return files, nil
 }
 
-func FileFindByGroupAndDate(group, date string) ([]models.Geral, error) {
+func FileFindByGroupAndDate(group, date string) ([]models.Files, error) {
 
 	newDate, err := time.Parse("02-01-2006", date)
 	if err != nil {
@@ -69,7 +69,7 @@ func FileFindByGroupAndDate(group, date string) ([]models.Geral, error) {
 	return files, nil
 }
 
-func SaveFiles(file *models.Geral) (*models.Geral, error) {
+func SaveFiles(file *models.Files) (*models.Files, error) {
 
 	fmt.Println("Chegou Service")
 	fmt.Println(file)
