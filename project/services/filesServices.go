@@ -73,7 +73,14 @@ func SaveFiles(file *models.Files) (*models.Files, error) {
 
 	fmt.Println("Chegou Service")
 	fmt.Println(file)
-	file.DataSendMessage = time.Now()
+
+	brasilia, err := time.LoadLocation("America/Sao_Paulo")
+	if err != nil {
+		fmt.Println("Erro ao carregar o fuso horário:", err)
+		return nil, err
+	}
+
+	file.DataSendMessage = time.Now().In(brasilia)
 
 	persistedFiles, err := repositories.SaveFiles(file)
 	if err != nil {
