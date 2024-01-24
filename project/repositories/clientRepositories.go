@@ -14,7 +14,7 @@ func ClientFindAll() ([]*models.Client, error) {
 	db := dataBase.Conn()
 
 	var clients []*models.Client
-	result := db.Table("clients").Find(&clients)
+	result := db.Table("clients").Preload("Groups").Find(&clients)
 	if result.Error != nil {
 		return nil, fmt.Errorf("Clientes não encontrados")
 	}
@@ -29,7 +29,7 @@ func ClientFindByID(id string) (*models.Client, error) {
 	db := dataBase.Conn()
 
 	var client models.Client
-	result := db.First(&client, id)
+	result := db.Preload("Groups").First(&client, id)
 	if result.Error != nil {
 		if errors.Is(result.Error, gorm.ErrRecordNotFound) {
 			return nil, fmt.Errorf("Cliente não encontrado")

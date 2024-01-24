@@ -11,6 +11,7 @@ func SetupRoutes(r *gin.Engine) {
 	r.GET("/", homeHandler)
 	controller.FilesRoutes(r)
 	controller.ClientRoutes(r)
+	controller.GroupsRoutes(r)
 }
 
 func homeHandler(c *gin.Context) {

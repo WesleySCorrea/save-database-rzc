@@ -6,10 +6,8 @@ import (
 )
 
 type Files struct {
-	ID       int `gorm:"primaryKey" db:"id" json:"id"`
-	ClientID int `db:"client_id" json:"clientId"`
-	// CreationDate             time.Time       `db:"creation_date" json:"creationDate"`
-	// UpdateDate               time.Time       `db:"update_date" json:"updateDate"`
+	ID                       int             `gorm:"primaryKey" db:"id" json:"id"`
+	ClientID                 int             `db:"client_id" json:"clientId"`
 	Phone                    string          `db:"phone" json:"phone"`
 	ParticipantPhone         string          `db:"participant_phone" json:"participantPhone"`
 	SenderName               string          `db:"sender_name" json:"senderName"`

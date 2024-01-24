@@ -82,6 +82,14 @@ func SaveFiles(file *models.Files) (*models.Files, error) {
 
 	file.DataSendMessage = time.Now().In(brasilia)
 
+	file.ClientID, err = FindClientIDByGroup(file.Phone)
+	if err != nil {
+		return nil, err
+	}
+	if file.ClientID == 0 {
+		return nil, fmt.Errorf("Grupo enviado não pertence a nenhum cliente - Client_id = 0")
+	}
+
 	persistedFiles, err := repositories.SaveFiles(file)
 	if err != nil {
 		return nil, err
