@@ -89,3 +89,23 @@ func SaveClient(client *models.Client) (*models.Client, error) {
 
 	return client, nil
 }
+
+func UpdateClient(id string, client *models.Client) (*models.Client, error) {
+	db := dataBase.Conn()
+
+	result := db.Model(&models.Client{}).Where("id = ?", id).Updates(client)
+	if result.Error != nil {
+		return nil, fmt.Errorf("Cliente não encontrado")
+	}
+	if result.RowsAffected == 0 {
+		return nil, fmt.Errorf("Cliente não encontrado")
+	}
+
+	updateclient := &models.Client{}
+	if err := db.First(updateclient, id).Error; err != nil {
+		return nil, fmt.Errorf("erro ao atualizar o cliente")
+	}
+	dataBase.CloseConnection(db)
+
+	return updateclient, nil
+}

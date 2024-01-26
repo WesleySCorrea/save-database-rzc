@@ -74,3 +74,17 @@ func SaveClient(client *models.Client) (*models.Client, error) {
 
 	return persistedClient, nil
 }
+
+func UpdateClient(id string, client *models.Client) (*models.Client, error) {
+	_, err := repositories.ClientFindByID(id)
+	if err != nil {
+		return nil, err
+	}
+
+	clientUpdate, err := repositories.UpdateClient(id, client)
+	if err != nil {
+		return nil, err
+	}
+
+	return clientUpdate, nil
+}

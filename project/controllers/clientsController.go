@@ -77,10 +77,29 @@ func SaveClient(c *gin.Context) {
 	c.JSON(http.StatusCreated, gin.H{"message": "Cliente salvos com sucesso", "Cliente": persistedClient})
 }
 
+func UpdateClient(c *gin.Context) {
+	id := c.Param("id")
+
+	var client models.Client
+	if err := c.ShouldBindJSON(&client); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Dados inválidos"})
+		return
+	}
+
+	clientUpdate, updateErr := services.UpdateClient(id, &client)
+	if updateErr != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Erro ao atualizar o cliente"})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"message": "Cliente atualizado com sucesso", "cliente": clientUpdate})
+}
+
 func ClientRoutes(r *gin.Engine) {
 	r.GET("/api/clients", ClientFindAll)
 	r.GET("/api/clients/:id", ClientFindByID)
 	r.GET("/api/clients/:id/:group", ClientFindByIDAndGroup)
 	r.GET("/api/clients/:id/:group/:date", ClientFindByIDAndGroupWithDate)
 	r.POST("/api/saveclients", SaveClient)
+	r.PUT("/api/updateclients/:id", UpdateClient)
 }
