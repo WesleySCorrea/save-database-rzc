@@ -80,3 +80,16 @@ func SaveGroup(group *models.Groups) (*models.Groups, error) {
 
 	return group, nil
 }
+
+func DeleteGroup(id string) error {
+	db := dataBase.Conn()
+
+	result := db.Table("groups").Where("id = ?", id).Delete(&models.Groups{})
+	if result.Error != nil {
+		return fmt.Errorf("Repository: Erro ao excluir o grupo")
+	}
+
+	dataBase.CloseConnection(db)
+
+	return nil
+}

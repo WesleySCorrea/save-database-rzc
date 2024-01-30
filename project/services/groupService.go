@@ -51,3 +51,17 @@ func SaveGroup(group *models.Groups) (*models.Groups, error) {
 
 	return persistedGroup, nil
 }
+
+func DeleteGroup(id string) error {
+
+	fmt.Println("Chegou na Service")
+
+	err := repositories.DeleteGroup(id)
+	if err != nil {
+		return err
+	}
+
+	fmt.Println("Saiu da Repository")
+
+	return nil
+}

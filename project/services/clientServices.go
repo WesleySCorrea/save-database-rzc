@@ -1,6 +1,7 @@
 package services
 
 import (
+	"errors"
 	"fmt"
 	"saveDatabase/project/models"
 	"saveDatabase/project/repositories"
@@ -43,12 +44,12 @@ func ClientFindByIDAndGroupWithDate(id, group, date string) ([]models.Files, err
 
 	newDate, err := time.Parse("02-01-2006", date)
 	if err != nil {
-		return nil, fmt.Errorf("Erro ao fazer parsing da data: " + date + ". Formato Invalido.")
+		return nil, err
 	}
 
 	formattedDate := newDate.Format("2006-01-02")
 	if formattedDate == "" {
-		return nil, fmt.Errorf("Erro ao formatar a data para 'yyyy-MM-dd'")
+		return nil, errors.New("erro ao formatar a data para o formato 'yyyy-MM-dd'")
 	}
 
 	files, err := repositories.ClientFindByIDAndGroupWithDate(id, group, formattedDate)

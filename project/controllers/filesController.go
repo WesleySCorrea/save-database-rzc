@@ -54,7 +54,6 @@ func FileFindByGroupAndDate(c *gin.Context) {
 		c.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
 		return
 	}
-	// c.JSON(http.StatusOK, gin.H{"group": group, "date": date})
 	c.JSON(http.StatusOK, gin.H{"Arquivos": files})
 }
 

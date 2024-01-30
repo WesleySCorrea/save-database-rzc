@@ -49,8 +49,25 @@ func SaveGroup(c *gin.Context) {
 	c.JSON(http.StatusCreated, gin.H{"message": "Grupo salvo com sucesso", "Grupo": persistedGroup})
 }
 
+func DeleteGroup(c *gin.Context) {
+	id := c.Param("id")
+
+	err := services.DeleteGroup(id)
+	if err != nil {
+		if err.Error() == "Grupo não encontrado" {
+			c.JSON(http.StatusNotFound, gin.H{"error": "Grupo não encontrado"})
+		} else {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "Erro ao excluir o grupo"})
+		}
+		return
+	}
+
+	c.JSON(http.StatusNoContent, gin.H{"message": "User deleted successfully"})
+}
+
 func GroupsRoutes(r *gin.Engine) {
 	r.GET("/api/groups/group/:phone", GroupFindByPhone)
 	r.GET("/api/groups/id/:id", GroupFindByID)
 	r.POST("/api/savegroups", SaveGroup)
+	r.DELETE("/api/deletegroups/:id", DeleteGroup)
 }

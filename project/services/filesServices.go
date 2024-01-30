@@ -1,6 +1,7 @@
 package services
 
 import (
+	"errors"
 	"fmt"
 	"saveDatabase/project/models"
 	"saveDatabase/project/repositories"
@@ -33,12 +34,12 @@ func FileFindByDate(date string) ([]models.Files, error) {
 
 	newDate, err := time.Parse("02-01-2006", date)
 	if err != nil {
-		return nil, fmt.Errorf("Erro ao fazer parsing da data: " + date + " \n Formato Invalido.")
+		return nil, fmt.Errorf("Erro ao fazer parsing da data: " + date + "  Formato Invalido.")
 	}
 
 	formattedDate := newDate.Format("2006-01-02")
 	if formattedDate == "" {
-		return nil, fmt.Errorf("Erro ao formatar a data para '2006-01-02'")
+		return nil, errors.New("erro ao formatar a data para o formato 'yyyy-MM-dd'")
 	}
 
 	files, err := repositories.FileFindByDate(formattedDate)
@@ -58,7 +59,7 @@ func FileFindByGroupAndDate(group, date string) ([]models.Files, error) {
 
 	formattedDate := newDate.Format("2006-01-02")
 	if formattedDate == "" {
-		return nil, fmt.Errorf("Erro ao formatar a data para '2006-01-02'")
+		return nil, errors.New("erro ao formatar a data para o formato 'yyyy-MM-dd'")
 	}
 
 	files, err := repositories.FileFindByGroupAndDate(group, formattedDate)
@@ -87,7 +88,7 @@ func SaveFiles(file *models.Files) (*models.Files, error) {
 		return nil, err
 	}
 	if file.ClientID == 0 {
-		return nil, fmt.Errorf("Grupo enviado não pertence a nenhum cliente - Client_id = 0")
+		return nil, errors.New("grupo enviado não pertence a nenhum cliente - Client_id = 0")
 	}
 
 	persistedFiles, err := repositories.SaveFiles(file)
